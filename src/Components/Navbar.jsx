@@ -1,20 +1,30 @@
 import React, { useEffect } from "react";
-import {  useSelector } from "react-redux";
+import {  useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { logOutUser } from "../features/auth/authSlice";
 
 const Navbar = () => {
+
 
   const navigate = useNavigate();
 
   const { user } = useSelector((state) => state.auth);
 
 
-  const logout = () => {
-  localStorage.removeItem('user');
-  console.log("remove done")
-  navigate('/login')
-  window.location.reload();
+  // const logout = () => {
+  // localStorage.removeItem('user');
+  // console.log("remove done")
+  // navigate('/login')
+  // window.location.reload();
+  // }
+
+  // LogOut
+  const dispath = useDispatch();
+
+  const logOut = () => {
+    dispath(logOutUser())
   }
+
 
   return (
     <div className="navDiv d-flex align-items-center justify-content-center">
@@ -26,7 +36,7 @@ const Navbar = () => {
         </div>
         <div className="btn-page">
           {user ? (
-            <button className="btn btn-danger rounded-0 text-light" onClick={logout}>
+            <button className="btn btn-danger rounded-0 text-light" onClick={logOut}>
               LogOut
             </button>
           ) : (

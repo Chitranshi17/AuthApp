@@ -51,6 +51,14 @@ const authSlice = createSlice({
             state.isError = true;
             state.message = action.payload;
         })
+
+        .addCase(logOutUser.fulfilled , (state, action) => {
+            state.user = null
+            state.isLoading = false
+            state.isError = false
+            state.isSuccess = false
+            state.message = ""
+          })      
     },
 })
 
@@ -83,6 +91,13 @@ export const loginUser = createAsyncThunk("LOGIN/USER" , async(loginFormData) =>
 })
 
 
-const logOutUser = createAsyncThunk("LOGOUT/USER" , async(id) => {
-    console.log(id)
-})
+// const logOutUser = createAsyncThunk("LOGOUT/USER" , async(id) => {
+//     console.log(id)
+// })
+
+
+
+export const logOutUser = createAsyncThunk("AUTH/LOGOUT", async() => {
+    localStorage.removeItem('user');
+  })
+  
